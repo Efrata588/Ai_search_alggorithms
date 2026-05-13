@@ -6,6 +6,7 @@ def bfs(graph,start,goal):
     visited = set ([start])
     parent={}
     expansion_order=[]
+    found=False
 
     while queue:
         current_node=queue.popleft()
@@ -13,6 +14,7 @@ def bfs(graph,start,goal):
 
 
         if current_node == goal:
+            found=True
             break
 
         for neighbour,_ in graph[current_node]:
@@ -20,7 +22,9 @@ def bfs(graph,start,goal):
                 visited.add(neighbour)
                 parent[neighbour]=current_node
                 queue.append(neighbour)
-        
+    if not found:
+        print('Goal was not found')
+        return None,expansion_order
     path=reconstruct_path(parent,start,goal)
     return path, expansion_order
 
